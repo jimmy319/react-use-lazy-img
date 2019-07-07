@@ -1,0 +1,42 @@
+{
+  "name": "react-use-lazy-img",
+  "version": "0.0.1",
+  "description": "A React hook to load image lazily",
+  "main": "lib/react-use-lazy-img.umd.js",
+  "module": "lib/react-use-lazy-img.esm.js",
+  "scripts": {
+    "pre-build": "rimraf lib",
+    "build": "rollup -c"
+  },
+  "keywords": [
+    "react",
+    "hooks"
+  ],
+  "author": "jimmy74319@gmail.com",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "husky": "^3.0.0",
+    "lint-staged": "^9.0.2",
+    "prettier": "^1.18.2",
+    "react": "^16.8.6",
+    "rollup": "^1.16.6",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
