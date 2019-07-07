@@ -2,8 +2,8 @@
   "name": "react-use-lazy-img",
   "version": "0.0.2",
   "description": "A React hook to load image lazily",
-  "main": "lib/react-use-lazy-img.umd.js",
-  "module": "lib/react-use-lazy-img.esm.js",
+  "main": "react-use-lazy-img.umd.js",
+  "module": "react-use-lazy-img.esm.js",
   "scripts": {
     "pre-build": "rimraf lib",
     "build": "rollup -c"
