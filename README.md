@@ -19,7 +19,7 @@ import useLazyImg from 'react-use-lazy-img'
 function LazyImage({ imgUrl, placeholderUrl }) {
   const imgSrc = useLazyImg(imgUrl, placeholderUrl)
   return (
-    <Img src={imgSrc} />
+    <img src={imgSrc} />
   )
 }
 ```
@@ -34,7 +34,7 @@ function LazyImage({ imgUrl, placeholderUrl }) {
   const imgElement = useRef(null)
   const imgSrc = useLazyImg(imgUrl, placeholderUrl, imgElement)
   return (
-    <Img src={imgSrc} ref={imgElement} />
+    <img src={imgSrc} ref={imgElement} />
   )
 }
 ```
