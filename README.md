@@ -1,4 +1,4 @@
-# useLazyImg <a href='https://travis-ci.org/jimmy319/useLazyImg'><img src='https://travis-ci.org/jimmy319/useLazyImg.svg?branch=master' /></a>
+# react-use-lazy-img <a href='https://travis-ci.org/jimmy319/react-use-lazy-img'><img src='https://travis-ci.org/jimmy319/react-use-lazy-img.svg?branch=master' /></a>
 
 This hook empowers components to be able to load image lazily without any DOM/Component structure changes.
 
