@@ -8,9 +8,11 @@ import { useState, useEffect } from 'react'
  * @param {String} placeholderUrl image url which will be used to display as placeholder before desired image loaded
  * @param {Object} lazyTarget ref of lazy image element
  * @param {Object} intersectionObserverOptions Intersection observer options
+ * @param {String} fallbackUrl fallback image Url when the imgUrl is broken
  */
-export default function useLazyImg(imgUrl, placeholderUrl, lazyTarget, intersectionObserverOptions = {}) {
+export default function useLazyImg(imgUrl, placeholderUrl, lazyTarget, intersectionObserverOptions = {}, fallbackUrl) {
   const [imgSrc, setImgSrc] = useState(placeholderUrl)
+  const onError = () => setImgSrc(fallbackUrl || placeholderUrl)
 
   // load image
   useEffect(() => {
@@ -35,5 +37,5 @@ export default function useLazyImg(imgUrl, placeholderUrl, lazyTarget, intersect
     }
   }, [])
 
-  return imgSrc
+  return { imgSrc, onError }
 }
