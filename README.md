@@ -13,29 +13,37 @@ npm i -S react-use-lazy-img
 Trigger image loading when component is rendered (componentDidMount)
 
 ```javascript
-import React from 'react'
-import useLazyImg from 'react-use-lazy-img'
+import React from "react";
+import useLazyImg from "react-use-lazy-img";
 
-function LazyImage({ imgUrl, placeholderUrl }) {
-  const imgSrc = useLazyImg(imgUrl, placeholderUrl)
-  return (
-    <img src={imgSrc} />
-  )
+function LazyImage({ imgUrl, placeholderUrl, fallbackUrl }) {
+  const { imgSrc, onError } = useLazyImg(
+    imgUrl,
+    placeholderUrl,
+    null,
+    null,
+    fallbackUrl
+  );
+  return <img src={imgSrc} onError={onError} />;
 }
 ```
 
 Load image when the element you specified is visible
 
 ```javascript
-import React, { useRef } from 'react'
-import useLazyImg from 'react-use-lazy-img'
+import React, { useRef } from "react";
+import useLazyImg from "react-use-lazy-img";
 
-function LazyImage({ imgUrl, placeholderUrl }) {
-  const imgElement = useRef(null)
-  const imgSrc = useLazyImg(imgUrl, placeholderUrl, imgElement)
-  return (
-    <img src={imgSrc} ref={imgElement} />
-  )
+function LazyImage({ imgUrl, placeholderUrl, fallbackUrl }) {
+  const imgElement = useRef(null);
+  const { imgSrc, onError } = useLazyImg(
+    imgUrl,
+    placeholderUrl,
+    imgElement,
+    null,
+    fallbackUrl
+  );
+  return <img src={imgSrc} ref={imgElement} onError={onError} />;
 }
 ```
 
@@ -43,9 +51,10 @@ function LazyImage({ imgUrl, placeholderUrl }) {
 
 ### useLazyImg(imgUrl, placeholderUrl, [lazyTarget], [intersectionObserverOptions])
 
-|      Name      |                                                                        Description                                                                           |
-| -------------  | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| imgUrl         | image url you want to load lazily                                                                                                                            |
-| placeholderUrl | image url which will be used to display as placeholder before desired image loaded                                                                           | 
-| lazyTarget     | (optional) ref of a dom element which will be used to determine the timing of loading image according to its visibility                                      |
-| intersectionObserverOptions    | (optional) use [intersection observer options](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Creating_an_intersection_observer) to defer image loading if you want to do this in a complicated way                   |
+| Name                        | Description                                                                                                                                                                                                                     |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| imgUrl                      | image url you want to load lazily                                                                                                                                                                                               |
+| placeholderUrl              | image url which will be used to display as placeholder before desired image loaded                                                                                                                                              |
+| lazyTarget                  | (optional) ref of a dom element which will be used to determine the timing of loading image according to its visibility                                                                                                         |
+| intersectionObserverOptions | (optional) use [intersection observer options](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Creating_an_intersection_observer) to defer image loading if you want to do this in a complicated way |
+| fallbackUrl                 | (optional) image url which will be used when imgUrl is broken                                                                                                                                                                   |
