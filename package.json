@@ -1,6 +1,6 @@
 {
   "name": "react-use-lazy-img",
-  "version": "0.0.4",
+  "version": "0.0.3",
   "description": "A React hook to load image lazily",
   "main": "react-use-lazy-img.umd.js",
   "module": "react-use-lazy-img.esm.js",
