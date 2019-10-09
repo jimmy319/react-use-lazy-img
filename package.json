@@ -38,5 +38,8 @@
       "prettier --write",
       "git add"
     ]
-  }
+  },
+  "browserslist": [
+    "> 1% in US"
+  ]
 }

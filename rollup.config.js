@@ -1,5 +1,10 @@
-const external = [
-  'react'
+import babel from 'rollup-plugin-babel'
+
+const external = ['react']
+const plugins = [
+  babel({
+    exclude: 'node_modules/**'
+  })
 ]
 
 export default [
@@ -11,10 +16,11 @@ export default [
       name: 'useLazyImg',
       sourcemap: true,
       globals: {
-        'react': 'React'
+        react: 'React'
       }
     },
-    external
+    external,
+    plugins
   },
   {
     input: 'src/useLazyImg.js',
@@ -23,6 +29,7 @@ export default [
       format: 'esm',
       sourcemap: true
     },
-    external
+    external,
+    plugins
   }
 ]
