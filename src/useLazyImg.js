@@ -18,24 +18,26 @@ export default function useLazyImg(imgUrl, placeholderUrl, lazyTarget, intersect
   useEffect(() => {
     // if browser supports IntersectionObserver and lazyTarget is given
     if ('IntersectionObserver' in window && lazyTarget && lazyTarget.current instanceof Element) {
-      const lazyImageObservor = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // change state
-            setImgSrc(imgUrl)
-            // don't need to observe anymore
-            lazyImageObservor.unobserve(entry.target)
-          }
-        })
-      }, intersectionObserverOptions)
-
-      // start to observe element
-      lazyImageObservor.observe(lazyTarget.current)
+      // reload image when prop - imgUrl changed
+      if (imgUrl !== imgSrc) {
+        const lazyImageObservor = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // change state
+              setImgSrc(imgUrl)
+              // don't need to observe anymore
+              lazyImageObservor.unobserve(entry.target)
+            }
+          })
+        }, intersectionObserverOptions)
+        // start to observe element
+        lazyImageObservor.observe(lazyTarget.current)
+      }
     } else {
       // baseline: load image after componentDidMount
       setImgSrc(imgUrl)
     }
-  }, [])
+  }, [imgUrl, imgSrc])
 
   return { imgSrc, onError }
 }
