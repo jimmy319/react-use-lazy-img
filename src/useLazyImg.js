@@ -12,7 +12,8 @@ import { useState, useEffect } from 'react'
  */
 export default function useLazyImg(imgUrl, placeholderUrl, lazyTarget, intersectionObserverOptions = {}, fallbackUrl) {
   const [imgSrc, setImgSrc] = useState(placeholderUrl)
-  const onError = () => setImgSrc(fallbackUrl || placeholderUrl)
+  const [errSrc, setErrSrc] = useState(null)
+  const onError = () => setErrSrc(fallbackUrl || placeholderUrl)
 
   // load image
   useEffect(() => {
@@ -20,18 +21,19 @@ export default function useLazyImg(imgUrl, placeholderUrl, lazyTarget, intersect
     if ('IntersectionObserver' in window && lazyTarget && lazyTarget.current instanceof Element) {
       // reload image when prop - imgUrl changed
       if (imgUrl !== imgSrc) {
-        const lazyImageObservor = new IntersectionObserver(entries => {
+        const lazyImageObserver = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               // change state
+              setErrSrc(null)
               setImgSrc(imgUrl)
               // don't need to observe anymore
-              lazyImageObservor.unobserve(entry.target)
+              lazyImageObserver.unobserve(entry.target)
             }
           })
         }, intersectionObserverOptions)
         // start to observe element
-        lazyImageObservor.observe(lazyTarget.current)
+        lazyImageObserver.observe(lazyTarget.current)
       }
     } else {
       // baseline: load image after componentDidMount
@@ -39,5 +41,5 @@ export default function useLazyImg(imgUrl, placeholderUrl, lazyTarget, intersect
     }
   }, [imgUrl, imgSrc])
 
-  return { imgSrc, onError }
+  return { imgSrc: errSrc || imgSrc, onError }
 }
