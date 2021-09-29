@@ -1,45 +1,55 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 
 /**
- * useLazyImg is a custom hook help you defer loading of images
+ * useLazyImg is a custom hook help you load image only when needed
  * How it works:
- * It will expose a state: imgSrc which will be initialized with param - placeholder. This state will be set as param - imgUrl once component did mount
+ * This hook exposes a state: imgSrc which is initialized with param - placeholder and it will be set to the actual image url once the custom effect being fired.
  * @param {String} imgUrl image url you want to load lazily
- * @param {String} placeholderUrl image url which will be used to display as placeholder before desired image loaded
- * @param {Object} lazyTarget ref of lazy image element
+ * @param {String} placeholderUrl image url that is used to display as a placeholder before the desired image loads
+ * @param {Object} lazyTarget lazy image element ref
  * @param {Object} intersectionObserverOptions Intersection observer options
- * @param {String} fallbackUrl fallback image Url when the imgUrl is broken
+ * @param {String} fallbackUrl fallback image url when the given imgUrl is broken
  */
-export default function useLazyImg(imgUrl, placeholderUrl, lazyTarget, intersectionObserverOptions = {}, fallbackUrl) {
-  const [imgSrc, setImgSrc] = useState(placeholderUrl)
-  const [errSrc, setErrSrc] = useState(null)
-  const onError = () => setErrSrc(fallbackUrl || placeholderUrl)
+export default function useLazyImg(
+  imgUrl,
+  placeholderUrl,
+  lazyTarget,
+  intersectionObserverOptions = {},
+  fallbackUrl
+) {
+  const [imgSrc, setImgSrc] = useState(placeholderUrl);
+  const [errSrc, setErrSrc] = useState(null);
+  const onError = () => setErrSrc(fallbackUrl || placeholderUrl);
 
   // load image
   useEffect(() => {
     // if browser supports IntersectionObserver and lazyTarget is given
-    if ('IntersectionObserver' in window && lazyTarget && lazyTarget.current instanceof Element) {
+    if (
+      "IntersectionObserver" in window &&
+      lazyTarget &&
+      lazyTarget.current instanceof Element
+    ) {
       // reload image when prop - imgUrl changed
       if (imgUrl !== imgSrc) {
         const lazyImageObserver = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               // change state
-              setErrSrc(null)
-              setImgSrc(imgUrl)
+              setErrSrc(null);
+              setImgSrc(imgUrl);
               // don't need to observe anymore
-              lazyImageObserver.unobserve(entry.target)
+              lazyImageObserver.unobserve(entry.target);
             }
-          })
-        }, intersectionObserverOptions)
+          });
+        }, intersectionObserverOptions);
         // start to observe element
-        lazyImageObserver.observe(lazyTarget.current)
+        lazyImageObserver.observe(lazyTarget.current);
       }
     } else {
       // baseline: load image after componentDidMount
-      setImgSrc(imgUrl)
+      setImgSrc(imgUrl);
     }
-  }, [imgUrl, imgSrc])
+  }, [imgUrl, imgSrc]);
 
-  return { imgSrc: errSrc || imgSrc, onError }
+  return { imgSrc: errSrc || imgSrc, onError };
 }
