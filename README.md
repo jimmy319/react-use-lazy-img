@@ -1,4 +1,6 @@
-# react-use-lazy-img <a href='https://travis-ci.org/jimmy319/react-use-lazy-img'><img src='https://travis-ci.org/jimmy319/react-use-lazy-img.svg?branch=master' /></a>
+# react-use-lazy-img
+[![Component Build](https://github.com/jimmy319/react-use-lazy-img/actions/workflows/component.yaml/badge.svg)](https://github.com/jimmy319/react-use-lazy-img/actions/workflow/component.yaml)
+[![Npm Publish](https://github.com/jimmy319/react-use-lazy-img/actions/workflows/publish.yaml/badge.svg)](https://github.com/jimmy319/react-use-lazy-img/actions/workflow/publish.yaml)
 
 This hook empowers components to load image lazily.
 
