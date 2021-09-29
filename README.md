@@ -1,16 +1,16 @@
 # react-use-lazy-img <a href='https://travis-ci.org/jimmy319/react-use-lazy-img'><img src='https://travis-ci.org/jimmy319/react-use-lazy-img.svg?branch=master' /></a>
 
-This hook empowers components to be able to load image lazily without any DOM/Component structure changes.
+This hook empowers components to load image lazily.
 
 ## Installation
 
 ```
-npm i -S react-use-lazy-img
+npm i react-use-lazy-img
 ```
 
 ## Usage
 
-Trigger image loading when component is rendered (componentDidMount)
+Trigger image loading when component is rendered
 
 ```javascript
 import React from "react";
@@ -54,7 +54,7 @@ function LazyImage({ imgUrl, placeholderUrl, fallbackUrl }) {
 | Name                        | Description                                                                                                                                                                                                                     |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | imgUrl                      | image url you want to load lazily                                                                                                                                                                                               |
-| placeholderUrl              | image url which will be used to display as placeholder before desired image loaded                                                                                                                                              |
-| lazyTarget                  | (optional) ref of a dom element which will be used to determine the timing of loading image according to its visibility                                                                                                         |
-| intersectionObserverOptions | (optional) use [intersection observer options](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Creating_an_intersection_observer) to defer image loading if you want to do this in a complicated way |
+| placeholderUrl              | image url that is used to display as a placeholder before the desired image loads                                                                                                                                             |
+| lazyTarget                  | (optional) ref of a DOM element which is used to determine the timing of loading image according to its visibility                                                                                                         |
+| intersectionObserverOptions | (optional) use [intersection observer options](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Creating_an_intersection_observer) if you want to lazyily load images in a complicated way |
 | fallbackUrl                 | (optional) image url which will be used when imgUrl is broken                                                                                                                                                                   |
